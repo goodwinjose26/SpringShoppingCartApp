@@ -30,7 +30,15 @@ public class ShopController {
     }
 
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
+    public List<Shop> searchProduct(@RequestBody Shop s)
+    {
+        String name=String.valueOf(s.getName());
+        System.out.println(name);
+        return (List<Shop>) dao.searchProduct(name);
 
+    }
 
 
 
