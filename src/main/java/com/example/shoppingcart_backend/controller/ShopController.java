@@ -36,6 +36,17 @@ public class ShopController {
         return map;
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/login",consumes = "application/json",produces = "application/json")
+    public List<Customers> login(@RequestBody Customers c)
+    {
+        String username=String.valueOf(c.getUsername());
+        String password=String.valueOf(c.getPassword());
+        return (List<Customers>) dao1.login(username,password);
+
+    }
+
+
 @CrossOrigin(origins = "*")
     @GetMapping("/view")
     public List<Shop> view()
