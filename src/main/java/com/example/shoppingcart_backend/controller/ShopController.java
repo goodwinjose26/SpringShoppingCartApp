@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @RestController
 public class ShopController {
     @Autowired
@@ -18,29 +17,23 @@ public class ShopController {
     @PostMapping(path = "/add",consumes = "application/json",produces = "application/json")
     public Map<String,String> add(@RequestBody Shop s)
     {
-        dao.save(e);
+        dao.save(s);
         HashMap<String,String> map=new HashMap<>();
         map.put("status","success");
         return map;
     }
-
-
-    @CrossOrigin(origins = "*")
-    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
-    public List<Shop> searchEmployee(@RequestBody Shop s)
-    {
-        String empcode=String.valueOf(s.getEmpcode());
-        System.out.println(empcode);
-        return (List<Shop>) dao.searchEmployee(e.getEmpcode());
-    }
-
-    @CrossOrigin(origins = "*")
-
+@CrossOrigin(origins = "*")
     @GetMapping("/view")
-    public List<Employee> view()
+    public List<Shop> view()
     {
-        return  (List<Employee>) dao.findAll();
+        return (List<Shop>) dao.findAll();
     }
+
+
+
+
+
+
 
 
 
