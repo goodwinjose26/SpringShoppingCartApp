@@ -36,15 +36,33 @@ public class ShopController {
         return map;
     }
 
-    @CrossOrigin(origins = "*")
+ @CrossOrigin(origins = "*")
     @PostMapping(path = "/login",consumes = "application/json",produces = "application/json")
-    public List<Customers> login(@RequestBody Customers c)
+    public HashMap<String,String> login(@RequestBody Customers c)
     {
         String username=String.valueOf(c.getUsername());
         String password=String.valueOf(c.getPassword());
-        return (List<Customers>) dao1.login(username,password);
+       // return (List<Customers>) dao1.login(username,password);
+List<Customers> result=(List<Customers>) dao1.login(username,password);
+        HashMap<String,String> st=new HashMap<>();
+        if (result.size()==0)
+        {
+            st.put("status","failed");
+        }
+        else
+        {
+            int id=result.get(0).getId();
+            st.put("userid",String.valueOf(id));
+            st.put("status","success");
+        }
+        return st;
 
     }
+
+
+
+
+
 
 
 @CrossOrigin(origins = "*")
@@ -62,6 +80,17 @@ public class ShopController {
         String name=String.valueOf(s.getName());
         System.out.println(name);
         return (List<Shop>) dao.searchProduct(name);
+
+    }
+
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/profileview",consumes = "application/json",produces = "application/json")
+    public List<Customers> profileview(@RequestBody Customers c)
+    {
+        String id=String.valueOf(c.getId());
+        System.out.println(id);
+        return (List<Customers>) dao1.profileview(c.getId());
 
     }
 
